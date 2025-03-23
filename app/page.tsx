@@ -45,7 +45,7 @@ export default function HomePage() {
             title="Endless Tools Editor"
             allow="clipboard-write; encrypted-media; gyroscope; web-share; accelerometer; autoplay; camera"
             allowFullScreen
-            allowTransparency
+            // allowTransparency
             frameBorder="0"
             referrerPolicy="strict-origin-when-cross-origin"
           />
