@@ -5,6 +5,7 @@ import Image from "next/image"
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [iframeLoaded, setIframeLoaded] = useState(false)
 
   useEffect(() => {
     setIsLoaded(true)
@@ -25,10 +26,17 @@ export default function HomePage() {
     }
   }, [])
 
+  // Function to handle iframe load completion
+  const handleIframeLoad = () => {
+    console.log("3D model fully loaded")
+    setIframeLoaded(true)
+  }
+
   return (
     <div className="fixed inset-0 w-full h-full bg-[#f5f5f5] overflow-hidden">
       {/* Main content with iframe - optimized for touch interactions */}
       <div className="absolute inset-0 w-full h-full touch-manipulation">
+        {/* Always render the iframe when component is loaded, but keep it invisible until content loads */}
         {isLoaded && (
           <iframe
             src="https://app.endlesstools.io/embed/ba06feb7-8920-4d0d-9e4b-ba04020bf0b9"
@@ -41,6 +49,8 @@ export default function HomePage() {
               left: 0,
               border: "none",
               touchAction: "manipulation",
+              opacity: iframeLoaded ? 1 : 0, // Hide iframe until content loads
+              transition: "opacity 0.3s ease",
             }}
             title="Endless Tools Editor"
             allow="clipboard-write; encrypted-media; gyroscope; web-share; accelerometer; autoplay; camera"
@@ -48,7 +58,20 @@ export default function HomePage() {
             // allowTransparency
             frameBorder="0"
             referrerPolicy="strict-origin-when-cross-origin"
+            onLoad={handleIframeLoad}
           />
+        )}
+        
+        {/* Show loading until iframe content is fully loaded */}
+        {(!isLoaded || !iframeLoaded) && (
+          <div className="w-full h-full flex flex-col items-center justify-center bg-[#f5f5f5]">
+            <div className="relative w-16 h-16 mb-4">
+              <div className="absolute inset-0 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+            </div>
+            <div className="font-['VCR_OSD_Mono'] tracking-wide text-black text-sm sm:text-base">
+              LOADING...
+            </div>
+          </div>
         )}
       </div>
 
