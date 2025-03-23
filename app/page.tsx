@@ -110,7 +110,7 @@ export default function HomePage() {
           APRIL 19 & 20TH
         </div>
         <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide text-black leading-none mt-[-2px]">
-          MEATPACKING DISTRICT, NY
+          MEATPACKING DISTRICT, NYC
         </div>
       </div>
     </div>
