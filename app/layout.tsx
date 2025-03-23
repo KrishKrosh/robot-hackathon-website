@@ -5,9 +5,8 @@ import { PostHogProvider } from "../components/PostHogProvider"
 
 export const metadata: Metadata = {
   title: "Robot Arm Hackathon",
-  description: "A hackathon for robot arm development",
+  description: "We’re hosting an AI + Robot Arm hackathon for the best builders in NYC, April 19-20 2025. Dive into the world of robotics and build something amazing with robot arms.",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
-  generator: 'v0.dev'
 }
 
 export default function RootLayout({
