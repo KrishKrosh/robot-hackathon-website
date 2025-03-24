@@ -50,10 +50,10 @@ export default function HomePage() {
 
       {/* Top left text layout */}
       <div className="absolute top-3 sm:top-6 left-3 sm:left-6 z-10 max-w-[90vw] sm:max-w-none pointer-events-none">
-        <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide leading-none whitespace-nowrap">
-          BETAWORKS // ALLEYCORP // UPFRONT
+        <div className="text-[10px] sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide leading-none whitespace-nowrap">
+          BETAWORKS // ALLEYCORP // UPFRONT // JP MORGAN
         </div>
-        <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide flex flex-wrap sm:flex-nowrap items-center leading-none mt-[-2px]">
+        <div className="text-[10px] sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide flex flex-wrap sm:flex-nowrap items-center leading-none mt-[-2px]">
           [ ROBOT ARM HACKATHON ] WITH <a href="https://github.com/huggingface/lerobot" target="_blank" rel="noopener noreferrer" className="pointer-events-auto">&nbsp;LeRobot</a>
           <Image
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hugging%20Face%20Logo-x7ku7o15UDiidNONFKxQ3BbyGlr33A.svg"
@@ -71,7 +71,7 @@ export default function HomePage() {
           href="https://lu.ma/z29r63z9"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block border-2 border-black bg-black text-white rounded-md px-4 py-1 text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide pointer-events-auto hover:bg-white hover:text-black transition-colors"
+          className="inline-block border-2 border-black bg-black text-white rounded-md px-4 py-1 text-[10px] sm:text-sm font-['VCR_OSD_Mono'] tracking-wide pointer-events-auto hover:bg-white hover:text-black transition-colors"
         >
           RSVP
         </a>
@@ -79,10 +79,10 @@ export default function HomePage() {
 
       {/* Date in bottom right */}
       <div className="absolute bottom-6 sm:bottom-12 right-3 sm:right-12 text-right z-10 pointer-events-none">
-        <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide text-black leading-none">
+        <div className="text-[10px] sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide text-black leading-none">
           APRIL 19 & 20TH
         </div>
-        <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide text-black leading-none mt-[-2px]">
+        <div className="text-[10px] sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide text-black leading-none mt-[-2px]">
           MEATPACKING DISTRICT, NYC
         </div>
       </div>
