@@ -1,7 +1,7 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, useGLTF } from '@react-three/drei'
+import { OrbitControls, useGLTF, Environment, Html } from '@react-three/drei'
 import { Suspense, useRef, useMemo, useState, useEffect } from 'react'
-import { Mesh, Group, Vector3, Raycaster, Plane, MeshStandardMaterial, Color, TextureLoader } from 'three'
+import { Mesh, Group, Vector3, Raycaster, Plane, MeshStandardMaterial, Color, TextureLoader, Vector2, RepeatWrapping } from 'three'
 
 // Joint limits in radians
 const JOINT_LIMITS = {
@@ -40,12 +40,34 @@ interface BaseProps {
 // Custom silver material with gradient effect
 function useSilverMaterial() {
   return useMemo(() => {
-    const material = new MeshStandardMaterial({
-      color: new Color('#A5A6AB'),    // Much brighter, almost chrome-like color
-      metalness: 0.3,                // Nearly perfect metallic reflection
-      roughness: 0.01,                // Ultra-smooth surface for mirror-like finish
-      envMapIntensity: 3.0,           // Very strong reflections
+    // Create texture loader
+    const textureLoader = new TextureLoader();
+    
+    // Load the new PNG textures that user has added
+    const baseTexture = textureLoader.load('/textures/metal/worn-shiny-metal-albedo.png');
+    const normalMap = textureLoader.load('/textures/metal/worn-shiny-metal-Normal-ogl.png');
+    const roughnessMap = textureLoader.load('/textures/metal/worn-shiny-metal-Roughness.png');
+    const metalnessMap = textureLoader.load('/textures/metal/worn-shiny-metal-Metallic.png');
+    
+    // Set texture wrapping and repeat for tiling effect
+    [baseTexture, normalMap, roughnessMap, metalnessMap].forEach(texture => {
+      texture.wrapS = texture.wrapT = RepeatWrapping;
+      texture.repeat.set(1, 1); // No tiling to prevent texture stretching
+      texture.anisotropy = 4; // Reduced anisotropy to prevent artifacts
     });
+    
+    const material = new MeshStandardMaterial({
+      color: new Color('#423c45'),    // Standard silver color
+      map: baseTexture,               // Base color/diffuse texture
+      normalMap: normalMap,           // Normal map for surface detail
+      roughnessMap: roughnessMap,     // Roughness map for worn/eroded areas
+      metalnessMap: metalnessMap,     // Metalness map for varying metallic properties
+      metalness: 0.6,                 // Moderate metalness
+      roughness: 0.7,                 // Moderate roughness
+      envMapIntensity: 0.6,           // More subtle reflection intensity
+      normalScale: new Vector2(0.3, 0.3), // Very subtle normal map effect
+    });
+    
     return material;
   }, []);
 }
@@ -57,7 +79,7 @@ function MovingJaw(props: any) {
   
   return (
     <group {...props} ref={jawRef} dispose={null}>
-      <mesh castShadow receiveShadow geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
+      <mesh geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
     </group>
   )
 }
@@ -69,7 +91,7 @@ function FixedGripper(props: any) {
 
   return (
     <group {...props} ref={gripperRef} dispose={null}>
-      <mesh castShadow receiveShadow geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
+      <mesh geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
       <group 
         position={[0.027, 0.022, -0.001]} 
         rotation={[Math.PI/2, Math.PI, Math.PI]}
@@ -87,7 +109,7 @@ function WristPitchRoll(props: any) {
   
   return (
     <group {...props} ref={wristPitchRef} dispose={null}>
-      <mesh castShadow receiveShadow geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
+      <mesh geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
       <group 
         position={[0, -0.03, -0.005]} 
         rotation={[Math.PI/2, -Math.PI/2, Math.PI]}
@@ -105,7 +127,7 @@ function LowerArm(props: BaseProps) {
   
   return (
     <group {...props} dispose={null}>
-      <mesh castShadow receiveShadow geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
+      <mesh geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
       <group 
         position={[-0.1102, 0.005375, 0]} 
         rotation={[Math.PI/2, Math.PI/2, 0]}
@@ -122,7 +144,7 @@ function UpperArm(props: BaseProps) {
   
   return (
     <group {...props} dispose={null}>
-      <mesh castShadow receiveShadow geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
+      <mesh geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
       <group 
         position={[-0.1138, 0.0005, -0.03]} 
         rotation={[0, Math.PI/4, Math.PI]}
@@ -139,7 +161,7 @@ function ShoulderRotationPitch(props: BaseProps) {
   
   return (
     <group {...props} dispose={null}>
-      <mesh castShadow receiveShadow geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
+      <mesh geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
       <group 
         position={[0.000125, 0.001, -0.11]} 
         rotation={[0, 0, Math.PI]}
@@ -156,15 +178,15 @@ function Base(props: BaseProps) {
   
   // Calculate responsive scale based on window width
   const scale = useMemo(() => {
-    if (typeof window === 'undefined') return [1.8, 1.8, 1.8] as const;
+    if (typeof window === 'undefined') return [1.9, 1.9, 1.9] as const;
     const width = window.innerWidth;
     if (width < 768) return [1.3, 1.3, 1.3] as const;      // Mobile - increased from 1.0
-    return [1.8, 1.8, 1.8] as const;                       // Laptop/Desktop
+    return [1.9, 1.9, 1.9] as const;                       // Laptop/Desktop
   }, []);
 
   return (
     <group {...props} dispose={null} scale={scale} position={[0, -0.2, 0]}>
-      <mesh castShadow receiveShadow geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
+      <mesh geometry={(nodes.Node1 as Mesh).geometry} material={silverMaterial} />
       <group 
         position={[0, 0.02, 0.05]}
         rotation={[Math.PI/2, 0, -Math.PI/2]}
@@ -194,6 +216,7 @@ function Scene() {
   const wristRollRef = useRef<Group>(null);
   const gripperRef = useRef<Group>(null);
   const jawRef = useRef<Group>(null);
+  const modelWrapperRef = useRef<Group>(null); // New ref for the entire model wrapper
   
   const targetPosition = useMemo(() => new Vector3(), []);
   const [reachable, setReachable] = useState(true);
@@ -212,34 +235,25 @@ function Scene() {
       // Update target position
       targetPosition.copy(intersection);
       
-      // Update base rotation based on cursor viewport position
-      if (baseRef.current) {
+      // Rotate the entire model based on cursor horizontal position
+      if (modelWrapperRef.current) {
         // Get normalized cursor position (-1 to 1)
-        const normalizedX = pointer.x; // pointer.x is already normalized in Three.js
+        const normalizedX = pointer.x;
         
-        // Calculate target angle based on which side of the viewport the cursor is on
-        let targetAngle;
-        if (normalizedX < 0) {
-          // Left side of viewport - rotate towards -180 degrees
-          targetAngle = -Math.PI + (normalizedX * Math.PI); // Smooth transition
-        } else {
-          // Right side of viewport - rotate towards 180 degrees
-          targetAngle = Math.PI - (normalizedX * Math.PI); // Smooth transition
-        }
+        // Calculate target angle - full rotation from -PI to PI
+        const targetAngle = normalizedX * Math.PI;
         
         // Apply smooth damping to the rotation
-        baseRef.current.rotation.y = smoothDamp(
-          baseRef.current.rotation.y,
-          clamp(
-            targetAngle,
-            JOINT_LIMITS.baseRotation.min,
-            JOINT_LIMITS.baseRotation.max
-          ),
-          3 * delta // Slightly slower smoothing for more stable rotation
+        modelWrapperRef.current.rotation.y = smoothDamp(
+          modelWrapperRef.current.rotation.y,
+          targetAngle,
+          3 * delta // Smoothing factor
         );
       }
       
-      // Update arm positions based on target
+      // The original base rotation code is no longer needed since we're rotating the whole model
+      // but we'll keep the joint movements below
+      
       if (shoulderRotationRef.current) {
         // Calculate angle to target in XZ plane for shoulder rotation
         const angle = Math.atan2(intersection.x, intersection.z);
@@ -306,11 +320,14 @@ function Scene() {
 
   return (
     <>
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[3, 10, 5]} intensity={5.0} />
-      <directionalLight position={[-3, -2, -4]} intensity={3.0} />
-      <directionalLight position={[0, 5, -5]} intensity={4.0} />
-      <hemisphereLight intensity={2.0} color="#ffffff" groundColor="#666666" />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[3, 5, 5]} intensity={1.0} />
+      <directionalLight position={[-3, -2, -4]} intensity={0.8} />
+      <directionalLight position={[0, 5, -5]} intensity={0.8} />
+      <hemisphereLight intensity={0.5} color="#ffffff" groundColor="#666666" />
+      
+      <Environment preset="warehouse" />
+      
       <RobotArmModel
         baseRef={baseRef}
         shoulderRotationRef={shoulderRotationRef}
@@ -320,6 +337,7 @@ function Scene() {
         wristRollRef={wristRollRef}
         gripperRef={gripperRef}
         jawRef={jawRef}
+        modelWrapperRef={modelWrapperRef}
       />
       {/* Add a transparent plane for cursor intersection */}
       <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, 0, 0]}>
@@ -341,22 +359,41 @@ function RobotArmModel(props: any) {
     wristPitchRef,
     wristRollRef,
     gripperRef,
-    jawRef
+    jawRef,
+    modelWrapperRef
   } = props;
 
   return (
-    <Base 
-      position={[0, 0, 0]} 
-      rotation={[0, 0, 0]}
-      baseRef={baseRef}
-      shoulderRotationRef={shoulderRotationRef}
-      shoulderPitchRef={shoulderPitchRef}
-      elbowRef={elbowRef}
-      wristPitchRef={wristPitchRef}
-      wristRollRef={wristRollRef}
-      gripperRef={gripperRef}
-      jawRef={jawRef}
-    />
+    <group ref={modelWrapperRef}>
+      <Base 
+        position={[0, 0, 0]} 
+        rotation={[0, 0, 0]}
+        baseRef={baseRef}
+        shoulderRotationRef={shoulderRotationRef}
+        shoulderPitchRef={shoulderPitchRef}
+        elbowRef={elbowRef}
+        wristPitchRef={wristPitchRef}
+        wristRollRef={wristRollRef}
+        gripperRef={gripperRef}
+        jawRef={jawRef}
+      />
+    </group>
+  );
+}
+
+// Create a Three.js compatible loading spinner
+function LoadingSpinner() {
+  return (
+    <Html fullscreen>
+      <div className="w-screen h-screen flex flex-col items-center justify-center bg-[#f5f5f5]">
+        <div className="relative w-16 h-16 mb-4">
+          <div className="absolute inset-0 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+        </div>
+        <div className="font-['VCR_OSD_Mono'] tracking-wide text-black text-sm sm:text-base">
+          LOADING...
+        </div>
+      </div>
+    </Html>
   );
 }
 
@@ -364,8 +401,8 @@ export default function RobotArm() {
   const [isModelsLoaded, setIsModelsLoaded] = useState(false);
 
   useEffect(() => {
-    // Create a promise that resolves when all models are loaded
-    const loadPromises = [
+    // Load the models using the appropriate GLTFLoader instead of TextureLoader
+    Promise.all([
       '/glb/Base.glb',
       '/glb/Shoulder_Rotation_Pitch.glb',
       '/glb/Upper_Arm.glb',
@@ -373,20 +410,23 @@ export default function RobotArm() {
       '/glb/Wrist_Pitch_Roll.glb',
       '/glb/Fixed_Gripper.glb',
       '/glb/Moving_Jaw.glb'
-    ].map(url => {
-      return new Promise((resolve) => {
-        const loader = new TextureLoader();
-        loader.load(url, () => resolve(true), undefined, () => resolve(true));
-      });
-    });
-
-    Promise.all(loadPromises).then(() => {
+    ].map(url => new Promise((resolve) => {
+      // We'll leverage the built-in useGLTF preload which is more reliable
+      useGLTF.preload(url);
+      // Use a simple timeout to ensure all models are loaded
+      setTimeout(resolve, 100);
+    })))
+    .then(() => {
+      console.log('All models loaded');
       setIsModelsLoaded(true);
+    })
+    .catch(error => {
+      console.error('Error loading models:', error);
     });
   }, []);
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-screen flex items-center">
       <Canvas 
         camera={{ 
           position: [1.0, 0.6, 1.0],
@@ -401,15 +441,10 @@ export default function RobotArm() {
           alignItems: 'center',
           justifyContent: 'center'
         }}
+        shadows={false} // Disable shadows temporarily to prevent rendering artifacts
       >
-        <Suspense fallback={
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="relative w-16 h-16 mb-4">
-              <div className="absolute inset-0 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          </div>
-        }>
-          {isModelsLoaded ? <Scene /> : null}
+        <Suspense fallback={null}>
+         {isModelsLoaded ? <Scene /> : null}
         </Suspense>
       </Canvas>
     </div>
