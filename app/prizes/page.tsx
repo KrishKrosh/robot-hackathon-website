@@ -110,7 +110,7 @@ export default function PrizesPage() {
               position="PALATIAL XR"
               title="SIMULATION AWARD" 
               description="Most innovative use of simulation in creating a robot arm application." 
-              value="SKYDIVE EXPERIENCE"
+              value="$1000"
             />
             <PrizeCard 
               position="RUNPOD"
