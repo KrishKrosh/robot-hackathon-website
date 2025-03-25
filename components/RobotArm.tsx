@@ -26,7 +26,7 @@ function smoothDamp(current: number, target: number, smoothing: number): number 
 // Create a loading component that can be used in multiple places
 function LoadingSpinner() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-[#f5f5f5] z-1">
+    <div className="w-full h-full flex flex-col items-center justify-center bg-[#f5f5f5] z-[-1]">
       <div className="relative w-16 h-16 mb-4">
         <div className="absolute inset-0 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
       </div>

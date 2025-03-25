@@ -30,7 +30,13 @@ export default function HomePage() {
     // This only controls the initial page load
     setIsLoaded(true)
 
-    // CRITICAL: Make sure body is scrollable
+    // CRITICAL: Make sure body has no overflow on the hero section
+    document.body.style.margin = "0"
+    document.body.style.padding = "0"
+    document.documentElement.style.margin = "0"
+    document.documentElement.style.padding = "0"
+    
+    // Allow scrolling for content below hero section
     document.body.style.overflow = "auto"
     document.body.style.position = "static"
     document.body.style.height = "auto"
@@ -54,11 +60,11 @@ export default function HomePage() {
   }, [])
 
   return (
-    <main className="bg-[#f5f5f5] select-text" style={{ minHeight: "100vh", height: "auto", overflow: "auto", position: "static" }}>
+    <main className="bg-[#f5f5f5] select-text overflow-x-hidden" style={{ height: "auto", position: "relative" }}>
       <HamburgerMenu />
       
-      {/* Hero section - fixed position */}
-      <section className="relative w-full h-screen bg-[#f5f5f5]">
+      {/* Hero section - exactly viewport height */}
+      <section className="relative w-full overflow-hidden bg-[#f5f5f5]" style={{ height: '100dvh', maxHeight: '100dvh' }}>
         {/* Main content with RobotArm - optimized for touch interactions */}
         <div className="absolute inset-0 w-full h-full touch-manipulation">
           {/* RobotArm now handles its own loading state */}
@@ -104,8 +110,8 @@ export default function HomePage() {
           </a>
         </div>
 
-        {/* Date in bottom right - with VCR font - optimized for mobile */}
-        <div className="absolute bottom-6 sm:bottom-12 right-3 sm:right-12 text-right z-10 pointer-events-none select-text">
+        {/* Date in bottom right - with VCR font - fixed for mobile visibility */}
+        <div className="fixed md:absolute bottom-6 sm:bottom-12 right-3 sm:right-12 text-right z-20 pointer-events-none select-text">
           <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide text-black leading-none">
             APRIL 19 & 20TH
           </div>
