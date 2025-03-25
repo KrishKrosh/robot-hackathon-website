@@ -239,17 +239,27 @@ function Scene() {
   const wristRollRef = useRef<Group>(null);
   const gripperRef = useRef<Group>(null);
   const jawRef = useRef<Group>(null);
-  const modelWrapperRef = useRef<Group>(null); // New ref for the entire model wrapper
+  const modelWrapperRef = useRef<Group>(null);
   
   const targetPosition = useMemo(() => new Vector3(), []);
   const [reachable, setReachable] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
   
   const { camera, pointer } = useThree();
   const raycaster = useMemo(() => new Raycaster(), []);
-  // Create a horizontal plane at y=0 for cursor intersection
   const plane = useMemo(() => new Plane(new Vector3(0, 1, 0), 0), []);
   
+  // Initialize positions after a short delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialized(true);
+    }, 1000); // Wait 1 second before starting animations
+    return () => clearTimeout(timer);
+  }, []);
+  
   useFrame((state, delta) => {
+    if (!isInitialized) return; // Skip updates until initialized
+    
     // Update target position from mouse
     raycaster.setFromCamera(pointer, camera);
     const intersection = new Vector3();
@@ -260,25 +270,17 @@ function Scene() {
       
       // Rotate the entire model based on cursor horizontal position
       if (modelWrapperRef.current) {
-        // Get normalized cursor position (-1 to 1)
         const normalizedX = pointer.x;
-        
-        // Calculate target angle - full rotation from -PI to PI
         const targetAngle = normalizedX * Math.PI;
         
-        // Apply smooth damping to the rotation
         modelWrapperRef.current.rotation.y = smoothDamp(
           modelWrapperRef.current.rotation.y,
           targetAngle,
-          3 * delta // Smoothing factor
+          3 * delta
         );
       }
       
-      // The original base rotation code is no longer needed since we're rotating the whole model
-      // but we'll keep the joint movements below
-      
       if (shoulderRotationRef.current) {
-        // Calculate angle to target in XZ plane for shoulder rotation
         const angle = Math.atan2(intersection.x, intersection.z);
         shoulderRotationRef.current.rotation.y = clamp(
           angle,
@@ -299,17 +301,17 @@ function Scene() {
           JOINT_LIMITS.gripper.max
         );
         
-        // Smooth the gripper motion
-        const smoothing = 5 * delta;
+        // Use a slower smoothing factor for more natural movement
+        const smoothing = 2 * delta;
         
-        // Update gripper rotation
+        // Update gripper rotation with smoother transition
         gripperRef.current.rotation.y = smoothDamp(
           gripperRef.current.rotation.y,
           gripperAngle,
           smoothing
         );
         
-        // Update jaw rotation
+        // Update jaw rotation with smoother transition
         jawRef.current.rotation.y = smoothDamp(
           jawRef.current.rotation.y,
           gripperAngle,
@@ -324,7 +326,6 @@ function Scene() {
             Math.pow(intersection.z - gripperPos.z, 2)
           );
           
-          // Invert the angle calculation and clamp to prevent downward motion
           const wristAngle = -Math.atan2(targetY, targetDist);
           
           wristPitchRef.current.rotation.x = smoothDamp(
