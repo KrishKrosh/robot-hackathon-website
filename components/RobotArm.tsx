@@ -473,9 +473,9 @@ export default function RobotArm() {
   }
 
   // Show loading spinner while models are loading
-  if (!isModelsLoaded) {
-    return <LoadingSpinner />;
-  }
+  // if (!isModelsLoaded) {
+  //   return <LoadingSpinner />;
+  // }
 
   // Render the robot arm scene once models are loaded
   return (
@@ -492,8 +492,11 @@ export default function RobotArm() {
           height: '100%',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          position: 'relative',
+          zIndex: 1
         }}
+        className="relative"
         shadows={false}
       >
         <Suspense fallback={<CanvasLoadingSpinner />}>

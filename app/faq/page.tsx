@@ -55,11 +55,11 @@ export default function FAQPage() {
     },
     {
       question: "HOW ARE TEAMS FORMED?",
-      answer: "You can come with a pre-formed team (maximum 4 people) or join as an individual and form teams at the event. We'll have team formation activities to help you find collaborators with complementary skills."
+      answer: "You can come with a pre-formed team (maximum 5 people) or join as an individual and form teams at the event."
     },
     {
       question: "WHAT KIND OF PROJECTS CAN I BUILD?",
-      answer: "The possibilities are endless! The only requirement is that your project must use the provided robot arm technology. We will release a list of ideas soon."
+      answer: "The possibilities are endless! The only requirement is that your project must use the provided robot arm technology."
     },
     {
       question: "IS THERE A REGISTRATION FEE?",
@@ -67,7 +67,7 @@ export default function FAQPage() {
     },
     {
       question: "WHAT IF I HAVE MORE QUESTIONS?",
-      answer: "Feel free to reach out to krish.life21@gmail.com and we'll be happy to answer any additional questions you might have!"
+      answer: "Feel free to reach out to krish.mehta@uwaterloo.ca and we'll be happy to answer any additional questions you might have!"
     }
   ]
 
@@ -97,7 +97,7 @@ export default function FAQPage() {
 
   return (
     <main className="bg-[#f5f5f5] select-text" style={{ minHeight: "100vh", height: "auto", overflow: "auto", position: "static" }}>
-      <HamburgerMenu />
+      <HamburgerMenu currentPage="FAQ" isHomePage={false} />
       
       {/* Main content */}
       <div className="pt-16 pb-32 overflow-y-auto">
@@ -105,11 +105,6 @@ export default function FAQPage() {
           
           {/* Header */}
           <div className="mb-12 pt-8">
-            <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide flex items-center mb-2">
-              <Link href="/" className="hover:underline">[ HOME ]</Link> 
-              <span className="mx-2">/</span> 
-              <span>[ FAQ ]</span>
-            </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-['VCR_OSD_Mono'] tracking-wide text-black border-b-2 border-black pb-4 select-text">
               FREQUENTLY ASKED QUESTIONS
             </h1>

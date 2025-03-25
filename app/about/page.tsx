@@ -35,7 +35,7 @@ export default function AboutPage() {
 
   return (
     <main className="bg-[#f5f5f5] select-text" style={{ minHeight: "100vh", height: "auto", overflow: "auto", position: "static" }}>
-      <HamburgerMenu />
+      <HamburgerMenu currentPage="ABOUT" isHomePage={false} />
       
       {/* Main content */}
       <div className="pt-16 pb-32 overflow-y-auto">
@@ -43,11 +43,6 @@ export default function AboutPage() {
           
           {/* Header */}
           <div className="mb-12 pt-8">
-            <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide flex items-center mb-2">
-              <Link href="/" className="hover:underline">[ HOME ]</Link> 
-              <span className="mx-2">/</span> 
-              <span>[ ABOUT ]</span>
-            </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-['VCR_OSD_Mono'] tracking-wide text-black border-b-2 border-black pb-4 select-text">
               ABOUT THE HACKATHON
             </h1>
