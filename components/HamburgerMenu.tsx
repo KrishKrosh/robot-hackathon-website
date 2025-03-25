@@ -124,7 +124,7 @@ export default function HamburgerMenu({ currentPage, isHomePage = false }: Hambu
               target="_blank" 
               rel="noopener noreferrer"
             >
-              APPLY
+              RSVP
             </Link>
           </nav>
 

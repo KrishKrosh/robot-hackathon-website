@@ -98,7 +98,7 @@ export default function HomePage() {
             rel="noopener noreferrer"
             className="inline-block border-2 border-black bg-black text-white rounded-md px-4 py-1 text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide pointer-events-auto hover:bg-white hover:text-black transition-colors"
           >
-            APPLY
+            RSVP
           </a>
         </div>
 

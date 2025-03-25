@@ -121,7 +121,7 @@ export default function AboutPage() {
                 rel="noopener noreferrer"
                 className="inline-block border-2 border-black bg-black text-white rounded-md px-6 py-3 text-base font-['VCR_OSD_Mono'] tracking-wide hover:bg-white hover:text-black transition-colors"
               >
-                APPLY NOW
+                RSVP NOW
               </Link>
             </div>
           </div>
