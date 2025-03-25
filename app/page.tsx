@@ -26,6 +26,8 @@ export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
+    // Set isLoaded to true after initial render
+    // This only controls the initial page load
     setIsLoaded(true)
 
     // CRITICAL: Make sure body is scrollable
@@ -57,26 +59,23 @@ export default function HomePage() {
       
       {/* Hero section - fixed position */}
       <section className="relative w-full h-screen bg-[#f5f5f5]">
-        {/* Main content with iframe - optimized for touch interactions */}
+        {/* Main content with RobotArm - optimized for touch interactions */}
         <div className="absolute inset-0 w-full h-full touch-manipulation">
-          {/* Always render the iframe when component is loaded, but keep it invisible until content loads */}
+          {/* RobotArm now handles its own loading state */}
           <div className="absolute inset-0 w-full h-full touch-manipulation flex items-center justify-center">
             <div className="w-full h-full max-w-[1200px] max-h-[800px]">
-              <RobotArm />
+              {isLoaded ? <RobotArm /> : (
+                <div className="w-full h-full flex flex-col items-center justify-center bg-[#f5f5f5]">
+                  <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                  <div className="font-['VCR_OSD_Mono'] tracking-wide text-black text-sm sm:text-base">
+                    LOADING...
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-          
-          {/* Show loading until iframe content is fully loaded */}
-          {(!isLoaded) && (
-            <div className="w-full h-full flex flex-col items-center justify-center bg-[#f5f5f5]">
-              <div className="relative w-16 h-16 mb-4">
-                <div className="absolute inset-0 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
-              </div>
-              <div className="font-['VCR_OSD_Mono'] tracking-wide text-black text-sm sm:text-base">
-                LOADING...
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Top left text layout - with VCR font - optimized for mobile */}

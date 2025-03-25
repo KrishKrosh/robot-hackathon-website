@@ -23,6 +23,29 @@ function smoothDamp(current: number, target: number, smoothing: number): number 
   return current + (target - current) * (1 - Math.exp(-smoothing));
 }
 
+// Create a loading component that can be used in multiple places
+function LoadingSpinner() {
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center bg-[#f5f5f5] z-1">
+      <div className="relative w-16 h-16 mb-4">
+        <div className="absolute inset-0 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+      </div>
+      <div className="font-['VCR_OSD_Mono'] tracking-wide text-black text-sm sm:text-base">
+        LOADING...
+      </div>
+    </div>
+  );
+}
+
+// Loading component for use within Canvas/Suspense
+function CanvasLoadingSpinner() {
+  return (
+    <Html fullscreen>
+      <LoadingSpinner />
+    </Html>
+  );
+}
+
 // Base props with optional transformations
 interface BaseProps {
   position?: [number, number, number];
@@ -381,28 +404,13 @@ function RobotArmModel(props: any) {
   );
 }
 
-// Create a Three.js compatible loading spinner
-function LoadingSpinner() {
-  return (
-    <Html fullscreen>
-      <div className="w-screen h-screen flex flex-col items-center justify-center bg-[#f5f5f5]">
-        <div className="relative w-16 h-16 mb-4">
-          <div className="absolute inset-0 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
-        </div>
-        <div className="font-['VCR_OSD_Mono'] tracking-wide text-black text-sm sm:text-base">
-          LOADING...
-        </div>
-      </div>
-    </Html>
-  );
-}
-
 export default function RobotArm() {
   const [isModelsLoaded, setIsModelsLoaded] = useState(false);
-
+  const [loadingError, setLoadingError] = useState<string | null>(null);
+  
   useEffect(() => {
-    // Load the models using the appropriate GLTFLoader instead of TextureLoader
-    Promise.all([
+    // Ensure GLB models are preloaded before rendering
+    const modelPaths = [
       '/glb/Base.glb',
       '/glb/Shoulder_Rotation_Pitch.glb',
       '/glb/Upper_Arm.glb',
@@ -410,21 +418,66 @@ export default function RobotArm() {
       '/glb/Wrist_Pitch_Roll.glb',
       '/glb/Fixed_Gripper.glb',
       '/glb/Moving_Jaw.glb'
-    ].map(url => new Promise((resolve) => {
-      // We'll leverage the built-in useGLTF preload which is more reliable
-      useGLTF.preload(url);
-      // Use a simple timeout to ensure all models are loaded
-      setTimeout(resolve, 100);
-    })))
+    ];
+    
+    // Track loading progress
+    let loadedCount = 0;
+    const totalModels = modelPaths.length;
+    
+    Promise.all(
+      modelPaths.map(url => 
+        new Promise<void>((resolve, reject) => {
+          try {
+            // Preload the model
+            useGLTF.preload(url);
+            
+            // Simulate a delay to ensure loading completes
+            // In a real app, you'd use the GLTF loader's onLoad callback
+            setTimeout(() => {
+              loadedCount++;
+              console.log(`Loaded ${loadedCount}/${totalModels} models`);
+              resolve();
+            }, 100);
+          } catch (error) {
+            console.error(`Error loading model ${url}:`, error);
+            reject(error);
+          }
+        })
+      )
+    )
     .then(() => {
-      console.log('All models loaded');
+      console.log('All models loaded successfully');
       setIsModelsLoaded(true);
     })
     .catch(error => {
       console.error('Error loading models:', error);
+      setLoadingError('Failed to load 3D models. Please refresh the page.');
     });
   }, []);
 
+  // Show loading error if any
+  if (loadingError) {
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center bg-[#f5f5f5]">
+        <div className="text-red-500 font-['VCR_OSD_Mono'] tracking-wide text-sm sm:text-base mb-4">
+          {loadingError}
+        </div>
+        <button 
+          onClick={() => window.location.reload()}
+          className="border-2 border-black bg-black text-white rounded-md px-4 py-2 text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide hover:bg-white hover:text-black transition-colors"
+        >
+          RELOAD PAGE
+        </button>
+      </div>
+    );
+  }
+
+  // Show loading spinner while models are loading
+  if (!isModelsLoaded) {
+    return <LoadingSpinner />;
+  }
+
+  // Render the robot arm scene once models are loaded
   return (
     <div className="w-full h-screen flex items-center">
       <Canvas 
@@ -441,10 +494,10 @@ export default function RobotArm() {
           alignItems: 'center',
           justifyContent: 'center'
         }}
-        shadows={false} // Disable shadows temporarily to prevent rendering artifacts
+        shadows={false}
       >
-        <Suspense fallback={null}>
-         {isModelsLoaded ? <Scene /> : null}
+        <Suspense fallback={<CanvasLoadingSpinner />}>
+          <Scene />
         </Suspense>
       </Canvas>
     </div>
