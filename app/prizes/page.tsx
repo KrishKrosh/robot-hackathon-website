@@ -13,12 +13,16 @@ const PrizeCard = ({
   title, 
   description, 
   value, 
-  position 
+  position,
+  isSponsored,
+  href
 }: { 
   title: string; 
   description: string; 
   value: string;
   position: string;
+  href?: string;
+  isSponsored?: boolean;
 }) => {
   return (
     <div className={`border-2 border-black bg-white p-4 sm:p-6 relative ${
@@ -29,9 +33,16 @@ const PrizeCard = ({
           <div className="text-white font-['VCR_OSD_Mono'] text-xl">★</div>
         </div>
       )}
-      <div className="font-['VCR_OSD_Mono'] tracking-wide mb-1 text-base sm:text-lg">
+      {isSponsored && (
+        <div className="font-['VCR_OSD_Mono'] tracking-wide mb-1 text-base sm:text-lg">
+        Sponsored by <a href={href} className="hover:underline">{position}</a>
+      </div>
+      )}
+      {!isSponsored && (
+        <div className="font-['VCR_OSD_Mono'] tracking-wide mb-1 text-base sm:text-lg">
         {position} PRIZE:
       </div>
+      )}
       <h3 className="text-lg sm:text-xl font-['VCR_OSD_Mono'] tracking-wide text-black mb-2 border-b border-black pb-2">
         {title}
       </h3>
@@ -111,12 +122,24 @@ export default function PrizesPage() {
               title="SIMULATION AWARD" 
               description="Most innovative use of simulation in creating a robot arm application." 
               value="$1000"
+              href="https://www.palatialxr.com"
+              isSponsored={true}
             />
             <PrizeCard 
               position="RUNPOD"
               title="TRAINING AWARD" 
               description="Use of RunPod GPUs to train/serve a model for your robot arm!" 
               value="$2,000 in RunPod Credits"
+              href="https://www.runpod.io"
+              isSponsored={true}
+            />
+            <PrizeCard 
+              position="INTERLACE OF"
+              title="FASHION AWARD"
+              description="Best robotics application interfacing with fabrics or textiles. Explorations into any aspect of the textile assembly line: handling fabrics, cutting, sewing, folding."
+              value="$1000"
+              href="https://www.interlaceof.com"
+              isSponsored={true}
             />
           </div>
           
