@@ -110,7 +110,7 @@ export default function HomePage() {
           <div className="text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide text-black leading-none mt-1">
             MEATPACKING DISTRICT, NYC
           </div>
-          <div className="text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide leading-none mt-1 text-gray-600">
+          <div className="text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide leading-none mt-1">
             BETAWORKS // ALLEYCORP // UPFRONT
           </div>
         </div>
