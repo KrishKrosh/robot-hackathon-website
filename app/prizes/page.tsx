@@ -15,7 +15,8 @@ const PrizeCard = ({
   value, 
   position,
   isSponsored,
-  href
+  href,
+  judge
 }: { 
   title: string; 
   description: string; 
@@ -23,11 +24,12 @@ const PrizeCard = ({
   position: string;
   href?: string;
   isSponsored?: boolean;
+  judge?: string;
 }) => {
   return (
     <div className={`border-2 border-black bg-white p-4 sm:p-6 relative ${
       position === "1st" ? "border-4" : ""
-    } select-text`}>
+    } select-text flex flex-col h-full`}>
       {position === "1st" && (
         <div className="absolute -top-4 -right-4 w-12 h-12 bg-black flex items-center justify-center">
           <div className="text-white font-['VCR_OSD_Mono'] text-xl">★</div>
@@ -46,11 +48,18 @@ const PrizeCard = ({
       <h3 className="text-lg sm:text-xl font-['VCR_OSD_Mono'] tracking-wide text-black mb-2 border-b border-black pb-2">
         {title}
       </h3>
-      <p className="text-sm sm:text-base font-['VCR_OSD_Mono'] tracking-wide mb-4">
+      <p className="text-sm sm:text-base font-['VCR_OSD_Mono'] tracking-wide mb-4 flex-grow">
         {description}
       </p>
-      <div className="bg-black text-white font-['VCR_OSD_Mono'] tracking-wide text-center py-2">
-        {value}
+      <div className="mt-auto">
+        {judge && (
+          <p className="text-sm font-['VCR_OSD_Mono'] tracking-wide mb-2">
+            Judged by: {judge}
+          </p>
+        )}
+        <div className="bg-black text-white font-['VCR_OSD_Mono'] tracking-wide text-center py-2">
+          {value}
+        </div>
       </div>
     </div>
   )
@@ -118,12 +127,22 @@ export default function PrizesPage() {
               value="PRIZE TBD"
             />
             <PrizeCard 
+              position="INNATE ROBOTICS"
+              title="BEST AGENTIC APPLICATION" 
+              description="Best application demonstrating agentic capabilities with the robot arm." 
+              value="$2000"
+              href="https://innate.bot"
+              isSponsored={true}
+              judge="Axel Peytavin"
+            />
+            <PrizeCard 
               position="PALATIAL XR"
               title="SIMULATION AWARD" 
               description="Most innovative use of simulation in creating a robot arm application." 
               value="$1000"
               href="https://www.palatialxr.com"
               isSponsored={true}
+              judge="Steven Ren"
             />
             <PrizeCard 
               position="RUNPOD"
@@ -132,6 +151,7 @@ export default function PrizesPage() {
               value="$2,000 in RunPod Credits"
               href="https://www.runpod.io"
               isSponsored={true}
+              judge="Aadil Ali"
             />
             <PrizeCard 
               position="INTERLACE OF"
@@ -140,29 +160,39 @@ export default function PrizesPage() {
               value="$1000"
               href="https://www.interlaceof.com"
               isSponsored={true}
+              judge="Naama P"
+            />
+            <PrizeCard 
+              position="FISH AUDIO"
+              title="BEST USE OF VOICE" 
+              description="Best application integrating voice technology with the robot arm." 
+              value="$1000"
+              href="https://fish.audio"
+              isSponsored={true}
+              judge="Aili Liu"
             />
           </div>
           
           {/* Additional Prizes */}
-          {/* <div className="mt-12 border-2 border-black bg-white p-4 sm:p-6 select-text">
+          <div className="mt-12 border-2 border-black bg-white p-4 sm:p-6 select-text">
             <h2 className="text-xl sm:text-2xl font-['VCR_OSD_Mono'] tracking-wide text-black mb-4 border-b-2 border-black pb-2">
-              MORE PRIZES TO BE ANNOUNCED!
+              MAIN JUDGES
             </h2>
             <ul className="space-y-4">
               <li className="font-['VCR_OSD_Mono'] tracking-wide">
-                <span className="text-base sm:text-lg font-bold block">AI INTEGRATION AWARD</span>
-                <span className="text-sm sm:text-base">Best use of AI with the robot arm. Prize: $500 + AI software licenses</span>
+                <span className="text-base sm:text-lg font-bold block">Krish Shah</span>
+                <span className="text-sm sm:text-base">Organizer. ML Engineer @ X. Independent robotics researcher.</span>
               </li>
               <li className="font-['VCR_OSD_Mono'] tracking-wide">
-                <span className="text-base sm:text-lg font-bold block">CREATIVE APPLICATION</span>
-                <span className="text-sm sm:text-base">Most creative or artistic use of the robot arm. Prize: $500 + featured exhibition</span>
+                <span className="text-base sm:text-lg font-bold block">Krish Mehta</span>
+                <span className="text-sm sm:text-base">Organizer. ML Engineer @ Palatial XR.</span>
               </li>
               <li className="font-['VCR_OSD_Mono'] tracking-wide">
-                <span className="text-base sm:text-lg font-bold block">SOCIAL IMPACT</span>
-                <span className="text-sm sm:text-base">Project with the greatest potential social benefit. Prize: $500 + impact acceleration program</span>
+                <span className="text-base sm:text-lg font-bold block">Peter Walkington</span>
+                <span className="text-sm sm:text-base">Neuromotor Interfaces and Virtual Reality at Meta.</span>
               </li>
             </ul>
-          </div> */}
+          </div>
           
           {/* Everyone Wins */}
           <div className="mt-10 text-center p-6 border-2 border-black bg-black text-white select-text">
