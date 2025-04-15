@@ -191,6 +191,10 @@ export default function PrizesPage() {
                 <span className="text-base sm:text-lg font-bold block">Peter Walkington</span>
                 <span className="text-sm sm:text-base">Neuromotor Interfaces and Virtual Reality at Meta.</span>
               </li>
+              <li className="font-['VCR_OSD_Mono'] tracking-wide">
+                <span className="text-base sm:text-lg font-bold block">Mina Fahmi</span>
+                <span className="text-sm sm:text-base">Founder @ Sandbar.</span>
+              </li>
             </ul>
           </div>
           
