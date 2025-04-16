@@ -136,7 +136,7 @@ export default function PrizesPage() {
               judge="Axel Peytavin"
             />
             <PrizeCard 
-              position="PALATIAL XR"
+              position="PALATIAL"
               title="SIMULATION AWARD" 
               description="Most innovative use of simulation in creating a robot arm application." 
               value="$1000"
@@ -185,7 +185,7 @@ export default function PrizesPage() {
               </li>
               <li className="font-['VCR_OSD_Mono'] tracking-wide">
                 <span className="text-base sm:text-lg font-bold block">Krish Mehta</span>
-                <span className="text-sm sm:text-base">Organizer. ML Engineer @ Palatial XR.</span>
+                <span className="text-sm sm:text-base">Organizer. ML Engineer @ Palatial.</span>
               </li>
               <li className="font-['VCR_OSD_Mono'] tracking-wide">
                 <span className="text-base sm:text-lg font-bold block">Peter Walkington</span>
