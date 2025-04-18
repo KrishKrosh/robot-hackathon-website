@@ -171,6 +171,15 @@ export default function PrizesPage() {
               isSponsored={true}
               judge="Aili Liu"
             />
+            <PrizeCard 
+              position="PHOSPHO AI"
+              title="BEST USE OF PHOSPHO AI" 
+              description="Best use of Phospho AI to create a robot arm application." 
+              value="Phospho AI Devkit"
+              href="https://www.phospho.ai"
+              isSponsored={true}
+              judge="Pierre-Louis Biojout"
+            />
           </div>
           
           {/* Additional Prizes */}
