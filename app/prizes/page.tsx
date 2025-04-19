@@ -202,7 +202,7 @@ export default function PrizesPage() {
               </li>
               <li className="font-['VCR_OSD_Mono'] tracking-wide">
                 <span className="text-base sm:text-lg font-bold block">Mina Fahmi</span>
-                <span className="text-sm sm:text-base">Founder @ Sandbar.</span>
+                <span className="text-sm sm:text-base">Co-founder @ Sandbar.</span>
               </li>
               <li className="font-['VCR_OSD_Mono'] tracking-wide">
                 <span className="text-base sm:text-lg font-bold block">Anson Yu</span>
