@@ -118,6 +118,13 @@ export default function HamburgerMenu({ currentPage, isHomePage = false }: Hambu
               PRIZES
             </Link>
             <Link 
+              href="/schedule" 
+              className="px-6 py-4 font-['VCR_OSD_Mono'] tracking-wide text-black text-xl border-b border-black hover:bg-black hover:bg-opacity-5 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              SCHEDULE
+            </Link>
+            <Link 
               href="https://lu.ma/z29r63z9" 
               className="px-6 py-4 font-['VCR_OSD_Mono'] tracking-wide text-black text-xl border-b border-black hover:bg-black hover:bg-opacity-5 transition-colors"
               onClick={() => setIsOpen(false)}
