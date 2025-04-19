@@ -137,8 +137,8 @@ export default function PrizesPage() {
             />
             <PrizeCard 
               position="PALATIAL"
-              title="SIMULATION AWARD" 
-              description="Most innovative use of simulation in creating a robot arm application." 
+              title="SIMULATION/DATA AWARD" 
+              description="Most innovative use of simulation/data in creating a robot arm application." 
               value="$1000"
               href="https://www.palatialxr.com"
               isSponsored={true}
