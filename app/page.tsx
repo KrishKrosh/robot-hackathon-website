@@ -59,8 +59,21 @@ export default function HomePage() {
 
   return (
     <main className="bg-[#f5f5f5] select-text overflow-x-hidden" style={{ height: "auto", position: "relative" }}>
-      {/* Navbar with highest z-index */}
-      <div className="relative z-50">
+      {/* Event Concluded Banner */}
+      <div className="fixed top-0 left-0 w-full bg-black text-white p-2 text-center z-[100] font-['VCR_OSD_Mono'] tracking-wide">
+        <span className="text-xs sm:text-sm">THE HACKATHON HAS CONCLUDED! </span>
+        <a 
+          href="https://robothackathon.devpost.com" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs sm:text-sm underline hover:text-yellow-300 transition-colors"
+        >
+          CHECK OUT THE PROJECTS →
+        </a>
+      </div>
+      
+      {/* Navbar with highest z-index - adjusted for banner */}
+      <div className="relative z-50 mt-8">
         <HamburgerMenu isHomePage={true} />
       </div>
       
@@ -90,15 +103,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* APPLY button in bottom left */}
+        {/* APPLY button in bottom left - Changed to VIEW PROJECTS */}
         <div className="absolute bottom-6 sm:bottom-12 left-3 sm:left-6 z-10">
           <a
-            href="https://lu.ma/z29r63z9"
+            href="https://robothackathon.devpost.com"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block border-2 border-black bg-black text-white rounded-md px-4 py-1 text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide pointer-events-auto hover:bg-white hover:text-black transition-colors"
           >
-            RSVP
+            VIEW PROJECTS
           </a>
         </div>
 

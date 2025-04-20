@@ -121,12 +121,6 @@ export default function PrizesPage() {
               value="Bambulabs 3D Printers"
             />
             <PrizeCard 
-              position="2nd"
-              title="RUNNER-UP" 
-              description="Outstanding project with exceptional technical merit and creative application of the robot arm technology." 
-              value="PRIZE TBD"
-            />
-            <PrizeCard 
               position="INNATE ROBOTICS"
               title="BEST AGENTIC APPLICATION" 
               description="Best application demonstrating agentic capabilities with the robot arm." 
