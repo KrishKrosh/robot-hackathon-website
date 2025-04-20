@@ -59,28 +59,32 @@ export default function HomePage() {
 
   return (
     <main className="bg-[#f5f5f5] select-text overflow-x-hidden" style={{ height: "auto", position: "relative" }}>
-      {/* Event Concluded Banner */}
+      {/* Submissions Live Banner */}
       <div className="fixed top-0 left-0 w-full bg-black text-white p-2 text-center z-[100] font-['VCR_OSD_Mono'] tracking-wide">
-        <span className="text-xs sm:text-sm">THE HACKATHON HAS CONCLUDED! </span>
-        <a 
-          href="https://robothackathon.devpost.com" 
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs sm:text-sm underline hover:text-yellow-300 transition-colors"
-        >
-          CHECK OUT THE PROJECTS →
-        </a>
+        <div className="inline-flex items-center">
+          <div className="relative mr-2">
+            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            <div className="absolute top-0 left-0 w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
+          </div>
+          <span className="text-xs sm:text-sm">SUBMISSIONS ARE LIVE! </span>
+          <a 
+            href="https://robothackathon.devpost.com" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs sm:text-sm underline hover:text-yellow-300 transition-colors ml-1"
+          >
+            SUBMIT YOUR PROJECT →
+          </a>
+        </div>
       </div>
       
-      {/* Navbar with highest z-index - adjusted for banner */}
-      <div className="relative z-50 mt-8">
+      {/* Hero section - exactly viewport height with padding for banner */}
+      <section className="relative w-full overflow-hidden bg-[#f5f5f5] z-0 pt-10" style={{ height: 'calc(100dvh)', maxHeight: 'calc(100dvh)' }}>
+        {/* Navbar with highest z-index now positioned directly by the component */}
         <HamburgerMenu isHomePage={true} />
-      </div>
-      
-      {/* Hero section - exactly viewport height */}
-      <section className="relative w-full overflow-hidden bg-[#f5f5f5] z-0" style={{ height: '100dvh', maxHeight: '100dvh' }}>
+        
         {/* Main content with RobotArm - optimized for touch interactions */}
-        <div className="absolute inset-0 w-full h-full touch-manipulation">
+        <div className="absolute inset-0 w-full h-full touch-manipulation pt-10">
           {/* RobotArm now handles its own loading state */}
           <div className="absolute inset-0 w-full h-full touch-manipulation flex items-center justify-center">
             <div className="w-full h-full max-w-[1200px] max-h-[800px] relative">
@@ -89,8 +93,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Top left text layout - with VCR font - optimized for mobile */}
-        <div className="absolute top-3 sm:top-6 left-3 sm:left-6 z-10 max-w-[90vw] sm:max-w-none select-text">
+        {/* Top left text layout - with VCR font - optimized for mobile - adjusted for banner */}
+        <div className="absolute top-12 sm:top-16 left-3 sm:left-6 z-10 max-w-[90vw] sm:max-w-none select-text">
           <div className="text-xs sm:text-sm md:text-base font-['VCR_OSD_Mono'] tracking-wide flex flex-wrap sm:flex-nowrap items-center leading-none mt-[-2px]">
             [ ROBOT HACKATHON ] WITH<a href="https://github.com/huggingface/lerobot">&nbsp;LeRobot</a>
             <Image
@@ -103,7 +107,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* APPLY button in bottom left - Changed to VIEW PROJECTS */}
+        {/* APPLY button in bottom left - Changed to SUBMIT PROJECT */}
         <div className="absolute bottom-6 sm:bottom-12 left-3 sm:left-6 z-10">
           <a
             href="https://robothackathon.devpost.com"
@@ -111,7 +115,7 @@ export default function HomePage() {
             rel="noopener noreferrer"
             className="inline-block border-2 border-black bg-black text-white rounded-md px-4 py-1 text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide pointer-events-auto hover:bg-white hover:text-black transition-colors"
           >
-            VIEW PROJECTS
+            SUBMIT PROJECT
           </a>
         </div>
 

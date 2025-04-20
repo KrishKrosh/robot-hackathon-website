@@ -44,7 +44,7 @@ export default function HamburgerMenu({ currentPage, isHomePage = false }: Hambu
         {!isOpen && (
           <button 
             onClick={() => setIsOpen(true)}
-            className="fixed top-2 sm:top-4 right-3 sm:right-6 z-50 w-6 sm:w-7 h-6 sm:h-7 flex flex-col justify-center items-center gap-[3px] sm:gap-1 bg-transparent border-[1.5px] border-black rounded-md hover:bg-black hover:bg-opacity-10 transition-colors"
+            className={`fixed ${isHomePage ? 'top-12' : 'top-2 sm:top-4'} right-3 sm:right-6 z-[110] w-6 sm:w-7 h-6 sm:h-7 flex flex-col justify-center items-center gap-[3px] sm:gap-1 bg-transparent border-[1.5px] border-black rounded-md hover:bg-black hover:bg-opacity-10 transition-colors`}
             aria-label="Open menu"
           >
             <div className="w-3 sm:w-3.5 h-[1.5px] bg-black"></div>
@@ -56,7 +56,7 @@ export default function HamburgerMenu({ currentPage, isHomePage = false }: Hambu
         {/* Menu Overlay - Added direct click handler to close the menu */}
         <div 
           onClick={() => setIsOpen(false)}
-          className={`fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          className={`fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-[115] transition-opacity duration-300 ${
             isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
           aria-hidden={!isOpen}
@@ -64,14 +64,14 @@ export default function HamburgerMenu({ currentPage, isHomePage = false }: Hambu
 
         {/* Menu Panel */}
         <div 
-          className={`fixed top-0 right-0 w-full sm:w-80 h-full bg-[#f5f5f5] z-40 border-l-2 border-black transform transition-transform duration-300 ease-in-out ${
+          className={`fixed top-0 right-0 w-full sm:w-80 h-full bg-[#f5f5f5] z-[120] border-l-2 border-black transform transition-transform duration-300 ease-in-out ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           } flex flex-col overflow-y-auto`}
           aria-hidden={!isOpen}
           onClick={(e) => e.stopPropagation()} // Stop clicks from reaching the overlay
         >
           {/* Header with Menu text and X button */}
-          <div className="border-b-2 border-black flex justify-between items-center">
+          <div className={`border-b-2 border-black flex justify-between items-center ${isHomePage ? 'pt-10' : ''}`}>
             <div className="py-4 px-6 font-['VCR_OSD_Mono'] tracking-wide text-black text-lg">
               [ MENU ]
             </div>
