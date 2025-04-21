@@ -59,21 +59,17 @@ export default function HomePage() {
 
   return (
     <main className="bg-[#f5f5f5] select-text overflow-x-hidden" style={{ height: "auto", position: "relative" }}>
-      {/* Submissions Live Banner */}
+      {/* Hackathon Concluded Banner */}
       <div className="fixed top-0 left-0 w-full bg-black text-white p-2 text-center z-[100] font-['VCR_OSD_Mono'] tracking-wide">
         <div className="inline-flex items-center">
-          <div className="relative mr-2">
-            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-            <div className="absolute top-0 left-0 w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
-          </div>
-          <span className="text-xs sm:text-sm">SUBMISSIONS ARE LIVE! </span>
+          <span className="text-xs sm:text-sm">THE HACKATHON HAS CONCLUDED! </span>
           <a 
             href="https://robothackathon.devpost.com" 
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs sm:text-sm underline hover:text-yellow-300 transition-colors ml-1"
           >
-            SUBMIT YOUR PROJECT →
+            VIEW THE PROJECTS →
           </a>
         </div>
       </div>
@@ -107,7 +103,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* APPLY button in bottom left - Changed to SUBMIT PROJECT */}
+        {/* Button in bottom left - Changed to VIEW PROJECTS */}
         <div className="absolute bottom-6 sm:bottom-12 left-3 sm:left-6 z-10">
           <a
             href="https://robothackathon.devpost.com"
@@ -115,7 +111,7 @@ export default function HomePage() {
             rel="noopener noreferrer"
             className="inline-block border-2 border-black bg-black text-white rounded-md px-4 py-1 text-xs sm:text-sm font-['VCR_OSD_Mono'] tracking-wide pointer-events-auto hover:bg-white hover:text-black transition-colors"
           >
-            SUBMIT PROJECT
+            VIEW PROJECTS
           </a>
         </div>
 
