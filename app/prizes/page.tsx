@@ -202,6 +202,10 @@ export default function PrizesPage() {
                 <span className="text-base sm:text-lg font-bold block">Anson Yu</span>
                 <span className="text-sm sm:text-base">Socratica. Likes to make things.</span>
               </li>
+              <li className="font-['VCR_OSD_Mono'] tracking-wide">
+                <span className="text-base sm:text-lg font-bold block">Nur Muhammad "Mahi" Shafiullah</span>
+                <span className="text-sm sm:text-base">PhD @ CILVR group NYU.</span>
+              </li>
             </ul>
           </div>
           
