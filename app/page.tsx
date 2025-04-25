@@ -60,16 +60,26 @@ export default function HomePage() {
   return (
     <main className="bg-[#f5f5f5] select-text overflow-x-hidden" style={{ height: "auto", position: "relative" }}>
       {/* Hackathon Concluded Banner */}
-      <div className="fixed top-0 left-0 w-full bg-black text-white p-2 text-center z-[100] font-['VCR_OSD_Mono'] tracking-wide">
+      <div className="fixed top-0 left-0 w-full bg-black text-white p-2 text-center z-[100] font-['VCR_OSD_Mono'] tracking-wide text-xs">
         <div className="inline-flex items-center">
           <span className="text-xs sm:text-sm">THE HACKATHON HAS CONCLUDED! </span>
+          <pre> FIND </pre>
           <a 
             href="https://robothackathon.devpost.com" 
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs sm:text-sm underline hover:text-yellow-300 transition-colors ml-1"
           >
-            VIEW THE PROJECTS →
+            PROJECTS
+          </a>
+          <pre> and </pre>
+          <a 
+            href="https://photos.app.goo.gl/nAcQCX5GrCcLjVFYA" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs sm:text-sm underline hover:text-yellow-300 transition-colors ml-1"
+          >
+            PICTURES
           </a>
         </div>
       </div>
